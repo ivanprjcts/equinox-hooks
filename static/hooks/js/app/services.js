@@ -70,6 +70,15 @@ app.service('api', ['$http', '$cookies', function($http, $cookies) {
         return _http("POST", APPLICATION_URL_PATH, null, params);
     };
 
+    this.pairApplication = function(id, token) {
+        var params = {"token": token}
+        return _http("POST", APPLICATION_URL_PATH + id + "/pair/", null, params);
+    };
+
+    this.unpairApplication = function(id) {
+        return _http("POST", APPLICATION_URL_PATH + id + "/unpair/", null, null);
+    };
+
     this.updateApplication = function(id, name, appId, secret) {
         params = {"name": name, "app_id": appId, "secret": secret}
         return _http("PUT", APPLICATION_URL_PATH + id + "/", null, params);

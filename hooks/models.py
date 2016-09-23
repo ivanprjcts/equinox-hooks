@@ -5,6 +5,7 @@ class Application(models.Model):
     name = models.CharField(max_length=100, default="Default name")
     app_id = models.CharField(max_length=400)
     secret = models.CharField(max_length=400)
+    account_id = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.name

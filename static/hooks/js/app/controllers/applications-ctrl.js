@@ -35,8 +35,6 @@ app.controller('ApplicationCtrl', ['$scope', '$sce', 'api', function ($scope, $s
         document.location.href = "/applications/" + id + "/";
     };
 
-
-
     $scope.createApplication = function(name, appId, secret) {
 
         api.createApplication(name, appId, secret).then(function(response) {
@@ -44,6 +42,21 @@ app.controller('ApplicationCtrl', ['$scope', '$sce', 'api', function ($scope, $s
             reloadApplications();
         });
 
+    };
+
+    $scope.pairApplication = function(application, token) {
+
+        api.pairApplication(application, token).then(function(response) {
+            reloadApplications();
+        });
+
+    };
+
+    $scope.unpairApplication = function(application) {
+
+        api.unpairApplication(application).then(function(response) {
+            reloadApplications();
+        });
 
     };
 
