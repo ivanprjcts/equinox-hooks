@@ -12,18 +12,19 @@ class Application(models.Model):
 
 class Hook(models.Model):
     name = models.CharField(max_length=100, default="Default name")
+    description = models.CharField(max_length=400, default="Default description", null=True)
     application = models.ForeignKey(Application)
-    latch_status = models.BooleanField()
-
-
-class Request(models.Model):
-    hook = models.ForeignKey(Hook)
+    latch_status = models.BooleanField(default=True)
+    regex = models.CharField(max_length=400, default="", null=True)
     method = models.CharField(max_length=20)
     url = models.CharField(max_length=400)
     body = models.CharField(max_length=800)
 
+    def __str__(self):
+        return self.name
+
 
 class Header(models.Model):
-    request = models.ForeignKey(Request)
     name = models.CharField(max_length=400)
     value = models.CharField(max_length=2000)
+    hook = models.ForeignKey(Hook)

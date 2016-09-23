@@ -1,4 +1,4 @@
-var app = angular.module('equinoxApp', ['ngAnimate', 'ui.bootstrap', 'ngCookies', 'ui-notification']);
+var app = angular.module('equinoxApp', ['ngAnimate', 'ui.bootstrap', 'ngCookies', 'ui-notification', 'ngRoute', 'toggle-switch']);
 
 app.run(function($rootScope, $location) {
     $rootScope.location = $location;

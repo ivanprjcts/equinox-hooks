@@ -11,6 +11,8 @@
 
     <title>{% block head_title %}My site title{% endblock %}</title>
 
+    <link rel="stylesheet" href="{% static '/hooks/css/angular-toggle-switch-bootstrap-3.css' %}" >
+
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="{% static '/hooks/css/bootstrap.min.css' %}" >
     <!-- Timeline CSS -->
@@ -33,11 +35,15 @@
     <script type="text/javascript" src="{% static '/hooks/js/angular.min.js' %}"></script>
     <script type="text/javascript" src="{% static '/hooks/js/angular-cookies.min.js' %}"></script>
     <script type="text/javascript" src="{% static '/hooks/js/angular-animate.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/hooks/js/angular-route.min.js' %}"></script>
     <script type="text/javascript" src="{% static '/hooks/js/ui-bootstrap-tpls-1.2.5.min.js' %}"></script>
     <!-- ui-notification JS -->
     <script type="text/javascript" src="{% static '/hooks/js/angular-ui-notification.min.js' %}"></script>
 
+
     <script type="text/javascript" src="{% static '/hooks/js/app/app.js' %}"></script>
+    <script type="text/javascript" src="{% static '/hooks/js/app/directives/ng-switch.js' %}"></script>
+
     <script type="text/javascript" src="{% static '/hooks/js/app/services.js' %}"></script>
 
     {% block app_js %}{% endblock %}

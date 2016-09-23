@@ -1,10 +1,10 @@
 from rest_framework import viewsets, filters
 
 from hooks.models import (
-    Application, Hook, Request, Header
+    Application, Hook, Header
 )
 from hooks.serializers import (
-    ApplicationSerializer, HookSerializer, RequestSerializer, HeaderSerializer
+    ApplicationSerializer, HookSerializer, HeaderSerializer
 )
 from hooks.filters import HookFilter
 
@@ -25,14 +25,6 @@ class HookViewSet(viewsets.ModelViewSet):
     serializer_class = HookSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filter_class = HookFilter
-
-
-class RequestViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Request.objects.all()
-    serializer_class = RequestSerializer
 
 
 class HeaderViewSet(viewsets.ModelViewSet):
