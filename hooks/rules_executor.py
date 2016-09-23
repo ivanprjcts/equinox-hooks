@@ -59,7 +59,7 @@ def execute_hook(hook_list, status):
 
             full_response_raw = get_raw_headers(response.headers)
             full_response_raw += response.text
-
+            print(full_response_raw)
             match_result_list = re.findall(request_data[HOOK_REQUEST_REGEX], full_response_raw)
             print "Match list1:", match_result_list
             if match_result_list:
@@ -101,7 +101,7 @@ def execute_hook(hook_list, status):
 
                 # TO BD match_result_list_raw
                 hook_object = Hook.objects.get(pk=request_data['id'])
-                hook_object.result = match_result_list_raw
+                hook_object.response = match_result_list_raw
                 hook_object.save()
 
 

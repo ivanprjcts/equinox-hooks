@@ -62,6 +62,12 @@ class HookViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_class = HookFilter
 
+    @detail_route(methods=['get'])
+    def response(self, request, pk=None, **kwargs):
+        app = Hook.objects.get(pk=pk)
+        response = app.response
+        return HttpResponse(response)
+
 
 class HeaderViewSet(viewsets.ModelViewSet):
     """
@@ -83,6 +89,29 @@ class LatchHookListener(View):
         return HttpResponse(challenge, content_type="text/plain")
 
     def post(self, request, format=None):
+        """
+        data =   [
+    {
+        "id": 6,
+        "name": "David",
+        "description": "Default description",
+        "latch_status": True,
+        "regex": "name=\"authenticityToken\" value=\"([A-Za-z0-9]*)\"",
+        "method": "GET",
+        "url": "https://securityinnovationday.elevenpaths.com/login",
+        "body": ".",
+        "method2": "POST",
+        "url2": "https://securityinnovationday.elevenpaths.com/login",
+        "body2": "authenticityToken=${VAR}&username=dasoidja&password=asdiojao",
+        "regex2": "Cookie: (.*)",
+        "response": None,
+        "application": 2
+    }
+]
+        execute_hook(data, True)
+        return HttpResponse("OK", content_type="text/plain")
+        """
+
         import json
         data = json.loads(self.request.body)
         accounts = data.get('accounts', {})

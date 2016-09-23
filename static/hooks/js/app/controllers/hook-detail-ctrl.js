@@ -35,16 +35,16 @@ app.controller('HookDetailCtrl', ['$scope', '$sce', 'api', function ($scope, $sc
     };
 
 
-    $scope.saveHook = function(name, description, latch_status, method, url, body, regex, application) {
+    $scope.saveHook = function(name, description, latch_status, method, url, body, regex,  method2, url2, body2, regex2, application) {
 
         if ($scope.hook.id == 0) {
 
-            api.createHook(name, description, latch_status, method, url, body, regex, application).then(function(response) {
+            api.createHook(name, description, latch_status, method, url, body, regex,  method2, url2, body2, regex2, application).then(function(response) {
 
             });
 
         } else {
-            api.updateHook($scope.hook.id, name, description, latch_status, method, url, body, regex, application).then(function(response) {
+            api.updateHook($scope.hook.id, name, description, latch_status, method, url, body, regex,  method2, url2, body2, regex2, application).then(function(response) {
 
             });
         }
