@@ -57,8 +57,7 @@ def execute_hook(hook_list, status):
                                         data=request_data[HOOK_REQUEST_BODY],
                                         #headers=request_data[HOOK_REQUEST_HEADERS],
                                         verify=False,
-                                        headers={"content-type": "application/x-www-form-urlencoded"},
-                                        proxies=proxies)
+                                        headers={"content-type": "application/x-www-form-urlencoded"})
             cookies = response.cookies
             full_response_raw = get_raw_headers(response.headers)
             full_response_raw += response.text
@@ -87,7 +86,6 @@ def execute_hook(hook_list, status):
                                                                                           match_result_list_raw),
                                             #headers=request_data[HOOK_REQUEST_HEADERS],
                                             verify=False,
-                                             proxies=proxies,
                                              cookies=cookies,
                                              headers={"content-type": "application/x-www-form-urlencoded"})
 
