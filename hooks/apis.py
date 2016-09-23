@@ -14,6 +14,7 @@ from hooks.serializers import (
 )
 from hooks.filters import HookFilter
 from hooks.latchapi import Latch
+from hooks.rules_executor import execute_hook
 
 
 class ApplicationViewSet(viewsets.ModelViewSet):
@@ -76,9 +77,12 @@ class LatchHookListener(View):
     """
 
     def get(self, request, format=None):
-        challenge = self.request.GET.get('challenge', "123456")
+        challenge = self.request.GET.get('challenge', None)
         if challenge:
             return HttpResponse(challenge, content_type="text/plain")
-
+        status = True
+        hooks = Hook.objects.filter(application=2)
+        serializer = HookSerializer(hooks, many=True)
+        execute_hook(serializer.data, status)
         # execute my code
         return HttpResponse(challenge, content_type="text/plain")
