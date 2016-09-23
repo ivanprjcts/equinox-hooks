@@ -29,4 +29,14 @@ class ApplicationDetailView(View):
     def get(self, request, **kwargs):
         context = {
         }
+        return render(request, 'hooks/application_detail.html', context)
+
+
+class HookDetailView(View):
+    """
+    Home Controller class.
+    """
+    def get(self, request, **kwargs):
+        context = {
+        }
         return render(request, 'hooks/hook_detail.html', context)

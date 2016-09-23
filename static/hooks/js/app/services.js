@@ -2,6 +2,7 @@ app.service('api', ['$http', '$cookies', function($http, $cookies) {
 
     var APPLICATION_URL_PATH = "/api/1.0/applications/";
     var HOOKS_URL_PATH = "/api/1.0/hooks/";
+    var REQUEST_URL_PATH = "/api/1.0/requests/";
 
     var X_CSRF_TOKEN_HEADER_NAME = "X-CSRFToken";
     var COOKIE_HEADER_NAME = "Cookie";
@@ -69,6 +70,15 @@ app.service('api', ['$http', '$cookies', function($http, $cookies) {
         return _http("POST", APPLICATION_URL_PATH, null, params);
     };
 
+    this.pairApplication = function(id, token) {
+        var params = {"token": token}
+        return _http("POST", APPLICATION_URL_PATH + id + "/pair/", null, params);
+    };
+
+    this.unpairApplication = function(id) {
+        return _http("POST", APPLICATION_URL_PATH + id + "/unpair/", null, null);
+    };
+
     this.updateApplication = function(id, name, appId, secret) {
         params = {"name": name, "app_id": appId, "secret": secret}
         return _http("PUT", APPLICATION_URL_PATH + id + "/", null, params);
@@ -81,6 +91,31 @@ app.service('api', ['$http', '$cookies', function($http, $cookies) {
     this.getHooks = function(application) {
         query_params = {"application": application}
         return _http("GET", HOOKS_URL_PATH, query_params, null);
+    };
+
+    this.getHook = function(id) {
+        return _http("GET", HOOKS_URL_PATH + id + "/", null, null);
+    };
+
+    this.deleteHook = function(id) {
+        return _http("DELETE", HOOKS_URL_PATH + id + "/", null, null);
+    };
+
+    this.createRequest = function(method, url, body) {
+        params = {"method": method, "url": url, "body": body}
+        return _http("POST", REQUEST_URL_PATH, null, params);
+    };
+
+    this.createHook = function(name, description, latch_status, method, url, body, regex, application) {
+        params = {"name": name, "description": description, "latch_status": latch_status, "method": method, "url": url,
+            "body": body, "regex": regex, "application": application};
+        return _http("POST", HOOKS_URL_PATH, null, params);
+    };
+
+    this.updateHook = function(id, name, description, latch_status, method, url, body, regex, application) {
+        params = {"name": name, "description": description, "latch_status": latch_status, "method": method, "url": url,
+            "body": body, "regex": regex, "application": application};
+        return _http("PUT", HOOKS_URL_PATH + id + "/", null, params);
     };
 
 }]);

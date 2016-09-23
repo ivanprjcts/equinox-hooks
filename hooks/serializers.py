@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from hooks.models import Application, Hook, Request, Header
+from hooks.models import Application, Hook, Header
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
@@ -21,14 +21,15 @@ class HookSimpleSerializer(serializers.ModelSerializer):
         fields = ('id', 'latch_status', 'name')
 
 
-class HookSerializer(serializers.ModelSerializer):
+class HookExtendedSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Hook
 
 
-class RequestSerializer(serializers.ModelSerializer):
+class HookSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Request
+        model = Hook
 
 
 class HeaderSerializer(serializers.ModelSerializer):

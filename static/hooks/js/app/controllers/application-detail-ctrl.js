@@ -15,28 +15,18 @@ app.controller('ApplicationDetailCtrl', ['$scope', '$sce', 'api', function ($sco
         reloadUrlApplication();
     };
 
-
-    $scope.removeApplication = function(id) {
-        api.deleteApplication(id).then(function(response) {
-                reloadApplications();
-            });
-    };
-
-    $scope.saveApplication = function(id, name, appId, secret) {
-        api.updateApplication(id, name, appId, secret)
-            .then(function(response) {
-                reloadApplications();
+    $scope.removeHook = function(id) {
+        api.deleteHook(id).then(function(response) {
+            reloadUrlApplication();
         });
     };
 
-    $scope.createApplication = function(name, appId, secret) {
+    $scope.editHook = function(id) {
+        document.location.href = "hooks/" + id + "/";
+    };
 
-        api.createApplication(name, appId, secret).then(function(response) {
-            $scope.show_new_application = false;
-            reloadApplications();
-        });
-
-
+    $scope.newHook = function() {
+        document.location.href = "hooks/0/";
     };
 
 }]);

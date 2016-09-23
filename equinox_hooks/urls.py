@@ -15,16 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.routers import DefaultRouter
 
-from hooks.views import HomeView, ApplicationsView, ApplicationDetailView
-from hooks.apis import ApplicationViewSet, HookViewSet, RequestViewSet, HeaderViewSet
+from hooks.views import HomeView, ApplicationsView, ApplicationDetailView, HookDetailView
+from hooks.apis import ApplicationViewSet, HookViewSet, HeaderViewSet, LatchHookListener
 
 router = DefaultRouter()
 router.register(r'applications', ApplicationViewSet)
 router.register(r'hooks', HookViewSet)
-router.register(r'requests', RequestViewSet)
 router.register(r'headers', HeaderViewSet)
 
 
@@ -32,7 +32,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/1.0/', include(router.urls, namespace='api')),
 
+    url(r'^latch-hook/', csrf_exempt(LatchHookListener.as_view()) ),
+
     url(r'^$', HomeView.as_view()),
     url(r'^applications/$', ApplicationsView.as_view()),
     url(r'^applications/(?P<id>[0-9]+)/$', ApplicationDetailView.as_view()),
+    url(r'^applications/(?P<app_id>[0-9]+)/hooks/(?P<id>[0-9]+)/$', HookDetailView.as_view()),
 ]
