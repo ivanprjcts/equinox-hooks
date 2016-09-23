@@ -19,7 +19,7 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
 from hooks.views import HomeView, ApplicationsView, ApplicationDetailView, HookDetailView
-from hooks.apis import ApplicationViewSet, HookViewSet, HeaderViewSet
+from hooks.apis import ApplicationViewSet, HookViewSet, HeaderViewSet, LatchHookListener
 
 router = DefaultRouter()
 router.register(r'applications', ApplicationViewSet)
@@ -30,6 +30,8 @@ router.register(r'headers', HeaderViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/1.0/', include(router.urls, namespace='api')),
+
+    url(r'^latch-hook/',LatchHookListener.as_view() ),
 
     url(r'^$', HomeView.as_view()),
     url(r'^applications/$', ApplicationsView.as_view()),

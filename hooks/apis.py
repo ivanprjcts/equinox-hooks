@@ -1,4 +1,6 @@
 from rest_framework import viewsets, filters
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from hooks.models import (
     Application, Hook, Header
@@ -33,3 +35,13 @@ class HeaderViewSet(viewsets.ModelViewSet):
     """
     queryset = Header.objects.all()
     serializer_class = HeaderSerializer
+
+
+class LatchHookListener(APIView):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    def get(self, request, format=None):
+        challenge = self.request.query_params.get('challenge', "123456")
+        return Response({"challenge": challenge})
+
