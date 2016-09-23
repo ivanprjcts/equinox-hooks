@@ -71,18 +71,27 @@ class HeaderViewSet(viewsets.ModelViewSet):
     serializer_class = HeaderSerializer
 
 
-class LatchHookListener(View):
+class LatchHookListener(APIView):
     """
     API endpoint that allows users to be viewed or edited.
     """
 
     def get(self, request, format=None):
-        challenge = self.request.GET.get('challenge', None)
+        challenge = self.request.query_params.get('challenge', None)
         if challenge:
             return HttpResponse(challenge, content_type="text/plain")
-        status = True
-        hooks = Hook.objects.filter(application=2)
-        serializer = HookSerializer(hooks, many=True)
-        execute_hook(serializer.data, status)
-        # execute my code
         return HttpResponse(challenge, content_type="text/plain")
+
+    def post(self, request, format=None):
+        accounts = self.request.data.get('accounts', {})
+        accounts_keys = accounts.keys()
+        if len(accounts_keys) > 0:
+            account_id = accounts_keys[0]
+            status = accounts[account_id][0]["new_status"]
+            status = status == "on"
+            application = Application.objects.get(account_id=account_id)
+            hooks = Hook.objects.filter(application=application)
+            serializer = HookSerializer(hooks, many=True)
+            execute_hook(serializer.data, status)
+
+        return Response("OK")
