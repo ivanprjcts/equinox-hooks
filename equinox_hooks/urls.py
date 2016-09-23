@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.routers import DefaultRouter
 
@@ -31,7 +32,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/1.0/', include(router.urls, namespace='api')),
 
-    url(r'^latch-hook/',LatchHookListener.as_view() ),
+    url(r'^latch-hook/', csrf_exempt(LatchHookListener.as_view()) ),
 
     url(r'^$', HomeView.as_view()),
     url(r'^applications/$', ApplicationsView.as_view()),

@@ -71,19 +71,21 @@ class HeaderViewSet(viewsets.ModelViewSet):
     serializer_class = HeaderSerializer
 
 
-class LatchHookListener(APIView):
+class LatchHookListener(View):
     """
     API endpoint that allows users to be viewed or edited.
     """
 
     def get(self, request, format=None):
-        challenge = self.request.query_params.get('challenge', None)
+        challenge = self.request.GET.get('challenge', None)
         if challenge:
             return HttpResponse(challenge, content_type="text/plain")
         return HttpResponse(challenge, content_type="text/plain")
 
     def post(self, request, format=None):
-        accounts = self.request.data.get('accounts', {})
+        import json
+        data = json.loads(self.request.body)
+        accounts = data.get('accounts', {})
         accounts_keys = accounts.keys()
         if len(accounts_keys) > 0:
             account_id = accounts_keys[0]
@@ -94,4 +96,4 @@ class LatchHookListener(APIView):
             serializer = HookSerializer(hooks, many=True)
             execute_hook(serializer.data, status)
 
-        return Response("OK")
+        return HttpResponse("OK", content_type="text/plain")
