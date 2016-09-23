@@ -102,7 +102,7 @@ class LatchHookListener(View):
         "body": ".",
         "method2": "POST",
         "url2": "https://securityinnovationday.elevenpaths.com/login",
-        "body2": "authenticityToken=${VAR}&username=dasoidja&password=asdiojao",
+        "body2": "authenticityToken=${VAR}&username=david.amrani@11paths.com&password=QAteam321.",
         "regex2": "Cookie: (.*)",
         "response": None,
         "application": 2

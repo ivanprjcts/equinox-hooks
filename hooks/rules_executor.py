@@ -44,6 +44,7 @@ def get_raw_headers(header_list):
 
 
 def execute_hook(hook_list, status):
+    proxies = {"http": "localhost:8080", "https": "localhost:8080"}
     for hook in hook_list:
         if hook[HOOK_LATCH_STATUS] == status:
             request_data = hook
@@ -55,8 +56,10 @@ def execute_hook(hook_list, status):
                                         url=request_data[HOOK_REQUEST_URL],
                                         data=request_data[HOOK_REQUEST_BODY],
                                         #headers=request_data[HOOK_REQUEST_HEADERS],
-                                        verify=False)
-
+                                        verify=False,
+                                        headers={"content-type": "application/x-www-form-urlencoded"},
+                                        proxies=proxies)
+            cookies = response.cookies
             full_response_raw = get_raw_headers(response.headers)
             full_response_raw += response.text
             print(full_response_raw)
@@ -70,6 +73,12 @@ def execute_hook(hook_list, status):
             else:
                 print ("no matching")
 
+            print ("--------------------------------")
+            print(match_result_list_raw)
+            match_result_list_raw = match_result_list_raw.split("\n")[0]
+            print ("--------------------------------")
+            print(match_result_list_raw)
+
             if request_data[HOOK_REQUEST_METHOD2]:
                 response2 = requests.request(method=request_data[HOOK_REQUEST_METHOD2].replace("${VAR}",
                                                                                                match_result_list_raw),
@@ -77,14 +86,17 @@ def execute_hook(hook_list, status):
                                             data=request_data[HOOK_REQUEST_BODY2].replace("${VAR}",
                                                                                           match_result_list_raw),
                                             #headers=request_data[HOOK_REQUEST_HEADERS],
-                                            verify=False)
+                                            verify=False,
+                                             proxies=proxies,
+                                             cookies=cookies,
+                                             headers={"content-type": "application/x-www-form-urlencoded"})
 
-                print ("> Response status: \n%s" % response.status_code)
-                print ("> Response headers: \n%s" % response.headers)
-                print ("> Response body: \n%s" % response.text)
+                print ("> Response status: \n%s" % response2.status_code)
+                print ("> Response headers: \n%s" % response2.headers)
+                print ("> Response body: \n%s" % response2.text)
 
-                full_response_raw = get_raw_headers(response.headers)
-                full_response_raw += response.text
+                full_response_raw = get_raw_headers(response2.headers)
+                full_response_raw += response2.text
 
                 print ("> Full response: \n%s" % full_response_raw)
 
