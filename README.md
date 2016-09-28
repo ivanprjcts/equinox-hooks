@@ -2,6 +2,7 @@
 
 ## Prerrequisites ##
 
+* Python 2.7.10+
 * Create virtualenv. http://docs.python-guide.org/en/latest/dev/virtualenvs/
 * Activate virtualenv.
 * Install dependencias.
