@@ -3,6 +3,11 @@
 ## Prerrequisites ##
 
 * Create virtualenv. http://docs.python-guide.org/en/latest/dev/virtualenvs/
+* Activate virtualenv.
+* Install dependencias.
+```
+pip install -r requirements.txt
+```
 
 
 ## Create DB ##
