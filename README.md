@@ -11,9 +11,10 @@ pip install -r requirements.txt
 
 
 ## Create DB ##
-
+```
 python manage.py migrate hooks
-
+```
 ## Run server ##
-
+```
 python manage.py runserver localhost:8080
+```
