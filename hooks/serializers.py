@@ -21,6 +21,12 @@ class HookSimpleSerializer(serializers.ModelSerializer):
         fields = ('id', 'latch_status', 'name')
 
 
+class HookExtendedSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Hook
+
+
 class HookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hook

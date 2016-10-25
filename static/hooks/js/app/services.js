@@ -106,15 +106,16 @@ app.service('api', ['$http', '$cookies', function($http, $cookies) {
         return _http("POST", REQUEST_URL_PATH, null, params);
     };
 
-    this.createHook = function(name, description, latch_status, method, url, body, regex, application) {
+    this.createHook = function(name, description, latch_status, method, url, body, regex, method2, url2, body2, regex2, application) {
         params = {"name": name, "description": description, "latch_status": latch_status, "method": method, "url": url,
             "body": body, "regex": regex, "application": application};
         return _http("POST", HOOKS_URL_PATH, null, params);
     };
 
-    this.updateHook = function(id, name, description, latch_status, method, url, body, regex, application) {
+    this.updateHook = function(id, name, description, latch_status, method, url, body, regex, method2, url2, body2, regex2, application) {
         params = {"name": name, "description": description, "latch_status": latch_status, "method": method, "url": url,
-            "body": body, "regex": regex, "application": application};
+            "body": body, "regex": regex, "method2": method2, "url2": url2,
+            "body2": body2, "regex2": regex2, "application": application};
         return _http("PUT", HOOKS_URL_PATH + id + "/", null, params);
     };
 
